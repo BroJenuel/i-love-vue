@@ -1,4 +1,5 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {TagsIcon} from '@sanity/icons'
 
 const bulletPointsTypeFields = [
   defineField({
@@ -67,4 +68,13 @@ export default defineType({
       ],
     }),
   ],
+  icon: TagsIcon,
+  preview: {
+    prepare() {
+      return {
+        title: 'Pricing Plans',
+        subtitle: 'plans',
+      }
+    },
+  },
 })

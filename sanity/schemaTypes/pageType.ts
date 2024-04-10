@@ -1,4 +1,5 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {DocumentIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'page',
@@ -29,4 +30,5 @@ export default defineType({
       ],
     }),
   ],
+  icon: DocumentIcon,
 })

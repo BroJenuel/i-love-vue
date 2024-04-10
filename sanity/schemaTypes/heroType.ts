@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {DocumentTextIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'hero',
@@ -7,15 +8,27 @@ export default defineType({
   fields: [
     defineField({
       name: 'heading',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'paragraph',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'buttonText',
       type: 'string',
     }),
   ],
+  icon: DocumentTextIcon,
+  preview: {
+    select: {
+      title: 'heading',
+    },
+    prepare({title}) {
+      return {
+        title: 'Hero Section',
+        subtitle: 'Hero',
+      }
+    },
+  },
 })
