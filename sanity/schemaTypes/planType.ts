@@ -32,6 +32,19 @@ const bulletPoints = [
         type: 'object',
         title: 'Bullet Point',
         fields: bulletPointsTypeFields,
+        preview: {
+          select: {
+            title: 'title',
+            disabled: 'isActive',
+            bold: 'bold',
+          },
+          prepare({title, disabled, bold}) {
+            return {
+              title,
+              subtitle: `${!disabled ? 'disabled' : 'enabled'} - ${bold ? 'bold' : 'normal'}`,
+            }
+          },
+        },
       }),
     ],
   }),
