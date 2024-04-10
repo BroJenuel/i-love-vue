@@ -37,7 +37,7 @@ defineProps({
                                     <IconGreenCheck v-if="!include.disabled" />
                                     <IconEx v-else />
                                     <span
-                                        class="font-light"
+                                        class="font-light text-sm"
                                         :class="{ '!font-bold': include.bold }"
                                         >{{ include.title }}</span
                                     >
