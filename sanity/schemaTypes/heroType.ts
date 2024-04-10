@@ -12,7 +12,7 @@ export default defineType({
     }),
     defineField({
       name: 'paragraph',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'buttonText',

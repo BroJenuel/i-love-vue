@@ -10,7 +10,7 @@ const { data } = await useAsyncData("landing", () =>
     )
 );
 
-const landing = (data.value as any).result[0].pageBuilder as Array<any>;
+const landing = (data.value as any).result[0]?.pageBuilder as Array<any>|null;
 const heading = computed(() => {
     if (!landing) return null;
     return landing.filter((item) => {
@@ -203,7 +203,7 @@ const basicPlusPlanBulletPoints = computed(() => {
         </div>
     </section>
     <section
-        class="mt-[90px] sm:mt-[200px] relative overflow-x-hidden mb-[120px] md:mb-[140px] lg:mb-[160px]"
+        class="mt-[90px] sm:mt-[200px] relative mb-[120px] md:mb-[140px] lg:mb-[160px]"
     >
         <img
             class="absolute w-full top-[180px] md:top-[120px] sm:top-[80px] scale-150 sm:scale-100 -z-20"
