@@ -113,7 +113,7 @@ const links = [
         class="w-full max-w-[1170px] mx-auto flex flex-col lg:flex-row gap-[64px] lg:gap-[200px] mb-[130px]"
     >
         <div class="w-full lg:w-1/2 text-center lg:text-left">
-            <img class="mb-[85px] mx-auto lg:mx-0" src="~/assets/media/Logo-with-letters.svg" />
+            <img class="mb-[85px] mx-auto lg:mx-0" src="~/assets/media/logo-with-letters.svg" />
             <p class="leading-[24px] mb-[61px]">
                 Thanks to fine people like you, Vue School can proudly sponsor Evan and the future
                 of Vue.js by being a Platinum Patreon
