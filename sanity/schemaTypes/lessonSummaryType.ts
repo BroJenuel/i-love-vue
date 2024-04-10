@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {DocumentTextIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'lessonSummary',
@@ -18,4 +19,13 @@ export default defineType({
       type: 'number',
     }),
   ],
+  icon: DocumentTextIcon,
+  preview: {
+    prepare() {
+      return {
+        title: 'Lesson Summary',
+        subtitle: 'summary',
+      }
+    },
+  },
 })
