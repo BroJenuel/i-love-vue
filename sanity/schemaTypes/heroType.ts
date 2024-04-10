@@ -7,7 +7,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'heading',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'paragraph',
