@@ -25,23 +25,27 @@ defineProps({
                     {{ title }}
                 </div>
                 <div class="flex flex-col gap-6">
-                    <div class="text-primary">Includes 1 year access to:</div>
-                    <div class="text-base flex flex-col gap-4">
-                        <div
-                            v-for="include in includes"
-                            class="flex items-center justify-between"
-                            :class="{ 'opacity-20': include.disabled }"
-                        >
-                            <div class="flex items-center gap-4">
-                                <IconGreenCheck v-if="!include.disabled" />
-                                <IconEx v-else />
-                                <span class="font-light" :class="{ '!font-bold': include.bold }">{{
-                                    include.title
-                                }}</span>
+                    <template v-if="includes?.length">
+                        <div class="text-primary">Includes 1 year access to:</div>
+                        <div class="text-base flex flex-col gap-4">
+                            <div
+                                v-for="include in includes"
+                                class="flex items-center justify-between"
+                                :class="{ 'opacity-20': include.disabled }"
+                            >
+                                <div class="flex items-center gap-4">
+                                    <IconGreenCheck v-if="!include.disabled" />
+                                    <IconEx v-else />
+                                    <span
+                                        class="font-light"
+                                        :class="{ '!font-bold': include.bold }"
+                                        >{{ include.title }}</span
+                                    >
+                                </div>
+                                <Icon name="mdi:information" />
                             </div>
-                            <Icon name="mdi:information" />
                         </div>
-                    </div>
+                    </template>
                     <slot />
                     <div class="bg-dark-background rounded-2xl p-6">
                         <div class="flex items-center mb-5">

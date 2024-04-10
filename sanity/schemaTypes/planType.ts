@@ -43,22 +43,22 @@ export default defineType({
   fields: [
     defineField({
       name: 'planBulletPoint',
-      type: 'array',
+      type: 'object',
       title: 'Plan Bullet Points',
-      of: [
-        defineArrayMember({
+      fields: [
+        defineField({
           name: 'basic',
           type: 'object',
           title: 'Basic',
           fields: bulletPoints,
         }),
-        defineArrayMember({
+        defineField({
           name: 'professional',
           type: 'object',
           title: 'Professional',
           fields: bulletPoints,
         }),
-        defineArrayMember({
+        defineField({
           name: 'basicPlus',
           type: 'object',
           title: 'Basic Plus',

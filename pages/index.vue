@@ -1,3 +1,84 @@
+<script setup lang="ts">
+const { data } = await useAsyncData("landing", () =>
+    $fetch(
+        "https://kt76vs11.api.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27page%27+%26%26+title+%3D%3D+%27Landing%27%5D+&perspective=published"
+    )
+);
+
+const landing = (data.value as any).result[0].pageBuilder as Array<any>;
+const heading = computed(() => {
+    if (!landing) return null;
+    return landing.filter((item) => {
+        return item._type === "hero";
+    })[0];
+});
+const heroTitle = heading.value
+    ? heading.value.heading
+    : `Complete
+                <span class="text-primary">Vue.js<br />training</span> solutions <br />for companies`;
+const heroParagraph = heading.value
+    ? heading.value.paragraph
+    : `Training solutions designed for companies, agencies and organizations with developers using or who are considering using the Vue.js framework`;
+const buttonText = heading.value ? heading.value.buttonText : `Talk to Sales`;
+
+const lessonSummary = computed(() => {
+    if (!landing) return null;
+    return landing.filter((item) => {
+        return item._type === "lessonSummary";
+    })[0];
+});
+const videoLessons = lessonSummary.value ? lessonSummary.value.lessons : 763;
+const hoursLessons = lessonSummary.value ? lessonSummary.value.hours : 64;
+const coursesLessons = lessonSummary.value ? lessonSummary.value.courses : 40;
+
+const plans = computed(() => {
+    if (!landing) return null;
+    return landing.filter((item) => {
+        return item._type === "plans";
+    })[0];
+});
+const basicPlanBulletPoints = computed(() => {
+    if (plans.value && plans.value.planBulletPoint.basic) {
+        return (plans.value.planBulletPoint.basic.bulletPoints as Array<any>).map((item) => {
+            return {
+                title: item.title,
+                disabled: !item.isActive,
+                bold: item.bold,
+            };
+        });
+    } else {
+        return [];
+    }
+});
+
+const professionalPlanBulletPoints = computed(() => {
+    if (plans.value && plans.value.planBulletPoint.professional) {
+        return (plans.value.planBulletPoint.professional.bulletPoints as Array<any>).map((item) => {
+            return {
+                title: item.title,
+                disabled: !item.isActive,
+                bold: item.bold,
+            };
+        });
+    } else {
+        return [];
+    }
+});
+
+const basicPlusPlanBulletPoints = computed(() => {
+    if (plans.value && plans.value.planBulletPoint.basicPlus) {
+        return (plans.value.planBulletPoint.basicPlus.bulletPoints as Array<any>).map((item) => {
+            return {
+                title: item.title,
+                disabled: !item.isActive,
+                bold: item.bold,
+            };
+        });
+    } else {
+        return [];
+    }
+});
+</script>
 <template>
     <section
         class="w-full max-w-[1170px] mx-auto flex flex-col lg:flex-row items-center gap-10 justify-between mt-[20px] md:mt-[60px] lg:mt-[80px] px-[15px]"
@@ -5,16 +86,14 @@
         <div class="w-full max-w-[570px] flex flex-col items-center lg:items-start gap-[30px]">
             <h1
                 class="text-[40px] sm:text-[60px] leading-[47.4px] text-center lg:text-left sm:leading-[71.1px] font-[700]"
-            >
-                Complete
-                <span class="text-primary">Vue.js<br />training</span> solutions <br />for companies
-            </h1>
-            <p class="sm:text-[22px] leading-[30px] text-center lg:text-left">
-                Training solutions designed for companies, agencies and organisations with
-                developers using or who are considering using the Vue.js framework
-            </p>
+                v-html="heroTitle"
+            ></h1>
+            <p
+                class="sm:text-[22px] leading-[30px] text-center lg:text-left"
+                v-html="heroParagraph"
+            ></p>
             <div>
-                <Button class="font-[500]">Talk to Sales</Button>
+                <Button class="font-[500]">{{ buttonText }}</Button>
             </div>
         </div>
         <div>
@@ -86,7 +165,7 @@
                     <div
                         class="text-[64px] sm:text-[90px] font-[500] text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#00F0FF]"
                     >
-                        763
+                        {{ videoLessons }}
                     </div>
                     <div class="text-sm">
                         <Icon name="material-symbols:play-circle-rounded" class="mr-1" />
@@ -97,7 +176,7 @@
                     <div
                         class="text-[64px] sm:text-[90px] font-[500] text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#00F0FF]"
                     >
-                        40
+                        {{ coursesLessons }}
                     </div>
                     <div class="text-sm">
                         <Icon name="ph:wallet-fill" class="mr-1" />
@@ -108,7 +187,7 @@
                     <div
                         class="text-[64px] sm:text-[90px] font-[500] text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#00F0FF]"
                     >
-                        64
+                        {{ hoursLessons }}
                     </div>
                     <div class="text-sm">
                         <Icon name="material-symbols:alarm-rounded" class="mr-1" />
@@ -145,52 +224,11 @@
         <div
             class="w-full max-w-[1165px] mx-auto flex flex-col md:flex-row items-center md:items-start flex-wrap lg:flex-nowrap gap-8 justify-center"
         >
-            <CardPrice
-                class="order-1"
-                title="Basic"
-                :includes="[
-                    {
-                        title: 'All Video Courses',
-                    },
-                    {
-                        title: 'Vue.Js Master class',
-                    },
-                    {
-                        title: 'Developer assist Slack channel',
-                    },
-                    {
-                        title: 'Live Weekly QnA',
-                        disabled: true,
-                    },
-                    {
-                        title: '1x ws ticket per license',
-                        disabled: true,
-                    },
-                ]"
-            >
-            </CardPrice>
+            <CardPrice class="order-1" title="Basic" :includes="basicPlanBulletPoints"> </CardPrice>
             <CardPrice
                 class="order-3 lg:order-2"
                 title="Professional"
-                :includes="[
-                    {
-                        title: 'All Video Courses',
-                    },
-                    {
-                        title: 'Vue.Js Master class',
-                    },
-                    {
-                        title: 'Developer assist Slack channel',
-                    },
-                    {
-                        title: 'Live Weekly QnA',
-                        bold: true,
-                    },
-                    {
-                        title: '1x ws ticket per license',
-                        bold: true,
-                    },
-                ]"
+                :includes="professionalPlanBulletPoints"
             >
                 <template #icon>
                     <IconRocket class="size-10" />
@@ -215,24 +253,7 @@
             <CardPrice
                 class="order-2 lg:order-3"
                 title="Basic"
-                :includes="[
-                    {
-                        title: 'All Video Courses',
-                    },
-                    {
-                        title: 'Vue.Js Master class',
-                    },
-                    {
-                        title: 'Developer assist Slack channel',
-                    },
-                    {
-                        title: 'Live Weekly QnA',
-                    },
-                    {
-                        title: '1x ws ticket per license',
-                        bold: true,
-                    },
-                ]"
+                :includes="basicPlusPlanBulletPoints"
             >
                 <template #icon>
                     <IconLightning class="size-10" />
