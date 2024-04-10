@@ -1,7 +1,12 @@
 <script setup lang="ts">
+const config = useRuntimeConfig();
+
+const SanityProjectID = config.public.sanityProjectId;
 const { data } = await useAsyncData("landing", () =>
     $fetch(
-        "https://kt76vs11.api.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27page%27+%26%26+title+%3D%3D+%27Landing%27%5D+&perspective=published"
+        "https://" +
+            SanityProjectID +
+            ".api.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27page%27+%26%26+title+%3D%3D+%27Landing%27%5D+&perspective=published"
     )
 );
 

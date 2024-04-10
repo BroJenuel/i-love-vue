@@ -18,4 +18,9 @@ export default defineNuxtConfig({
             ],
         },
     },
+    runtimeConfig: {
+        public: {
+            sanityProjectId: process.env.SANITY_PROJECT_ID,
+        },
+    },
 });
